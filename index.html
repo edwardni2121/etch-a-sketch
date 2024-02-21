@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Etch-A-Sketch</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Etch-A-Sketch</h1>
+    </div>
+    <button id="createpad">Create Sketchpad</button>
+    <div id="sketchpad">
+
+    </div>
+    <script>
+        let boxNumber;
+        let sketchpad = document.querySelector('#sketchpad');
+        let createpad = document.querySelector('#createpad');
+
+        let createSquare = function(parentObject, widthAsPercent){
+            let newSquare = document.createElement('div');
+            newSquare.style.flex = `0 1 ${widthAsPercent}`;
+            newSquare.style.border = '1px solid black';
+            newSquare.style.aspectRatio = '1/1';
+            newSquare.style.display = 'inline-block';
+            newSquare.classList.add("paintblock");
+            parentObject.appendChild(newSquare);
+        }
+
+        let createSketch = function(number, widthPercent){
+            for (let i = 0; i < number; i++){
+                let newRow = document.createElement('div');
+                newRow.style.display = 'flex'
+                newRow.style.flexBasis = '100%';
+                sketchpad.appendChild(newRow);
+                for (let j = 0; j < number; j++){
+                    createSquare(newRow, widthPercent);
+                }
+            }
+        }
+
+        createpad.addEventListener('click', () => {boxNum = Number(prompt('Enter the NxN squares you want your sketchpad to have:', 1));
+            //reset the child sketchpad whenever user selects a new sketchpad size
+            let children = sketchpad.children;
+            for (let i = 0; i< children.length; i++){
+                console.log(children[i]);
+                sketchpad.removeChild(children[i]);
+            }
+
+            let size = Math.floor((1/boxNum)*100);
+            let boxpixels = size.toString() + '%';
+            console.log(boxpixels);
+            console.log(boxNum);
+
+            createSketch(boxNum);
+        });
+
+            sketchpad.addEventListener('mouseover', (event) => {
+                let target = event.target;
+                if (target === sketchpad) return;
+                target.style.backgroundColor = 'black';
+            })
+            //don't understand how mouseover and event delegation bubbling interacts??
+            
+        /* Etch-a-sketch Pseudo Code
+
+            Create an event handler for the create pad button to prompt user to input a number
+            Convert the string entered into a number
+            Pass the entered number into a variable boxSize
+            
+            Loop through for a boxSize to the power of 2, exits before hitting power of 2
+                Create a variable newSquare to reference a new div block element
+                Set newSquare style to have a solid border and have a width and height equal size divided by boxSize
+                append the newSquare as a child of our flex container div
+        */
+    </script>
+</body>
+</html>
