@@ -43,10 +43,15 @@
 
         createpad.addEventListener('click', () => {boxNum = Number(prompt('Enter the NxN squares you want your sketchpad to have:', 1));
             //reset the child sketchpad whenever user selects a new sketchpad size
-            let children = sketchpad.children;
-            for (let i = 0; i< children.length; i++){
-                console.log(children[i]);
-                sketchpad.removeChild(children[i]);
+            let children = sketchpad.childNodes;
+            while (children.length > 0){
+                console.log(children[children.length - 1]);
+                sketchpad.removeChild(children[children.length - 1]);
+            }
+
+            if (boxNum > 100 || boxNum < 0 || typeof boxNum === NaN){
+                alert('input a NUMBER between 0 - 100');
+                return;
             }
 
             let size = Math.floor((1/boxNum)*100);
@@ -60,7 +65,7 @@
             sketchpad.addEventListener('mouseover', (event) => {
                 let target = event.target;
                 if (target === sketchpad) return;
-                target.style.backgroundColor = 'black';
+                target.style.backgroundColor = 'red';
             })
             //don't understand how mouseover and event delegation bubbling interacts??
             
