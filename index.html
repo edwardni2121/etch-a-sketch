@@ -44,8 +44,8 @@
         createpad.addEventListener('click', () => {boxNum = Number(prompt('Enter the NxN squares you want your sketchpad to have:', 1));
             //reset the child sketchpad whenever user selects a new sketchpad size
             let children = sketchpad.childNodes;
+            
             while (children.length > 0){
-                console.log(children[children.length - 1]);
                 sketchpad.removeChild(children[children.length - 1]);
             }
 
@@ -56,8 +56,6 @@
 
             let size = Math.floor((1/boxNum)*100);
             let boxpixels = size.toString() + '%';
-            console.log(boxpixels);
-            console.log(boxNum);
 
             createSketch(boxNum);
         });
